@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "SMA")(type "KiCad")(uri "${KIPRJMOD}/SMA_conn")(options "")(descr ""))
+  (lib (name "Aligator")(type "KiCad")(uri "C:/Users/Sasha/Documents/sx7_footprints")(options "")(descr ""))
+  (lib (name "TrackerLib")(type "KiCad")(uri "C:/Users/Sasha/Documents/OS-42-tracker")(options "")(descr ""))
+)

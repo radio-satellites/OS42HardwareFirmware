@@ -1,0 +1,18 @@
+Frame format for FSK:
+
+|Frame sync| Data | Reed Solomon FEC |
+
+Parameters:
+
+Length of frame: always 64 bytes (dictated by FSK buffer)
+
+Frame sync = 0xABCD (integer value 43981, 2 bytes)
+Length of FEC = 11 ECC bytes
+Payload length = 50 bytes
+
+Frame format for LoRa:
+
+|ID byte| Payload |
+
+
+

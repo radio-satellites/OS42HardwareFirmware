@@ -1,0 +1,22 @@
+Pseudocode:
+
+Setup:
+1. Check if first time running, not going from deep sleep. 
+2. If first time running, turn on GPS and wait for it to connect
+3. Begin camera
+4. Begin transmitter
+5. Transmit "on" beacon (1 byte of VCID, plus 255 bytes of 0x00)
+6. Set first time running to false
+
+Loop:
+1. Initialize camera
+2. Write image to buffer
+3. *OPTIONAL* Encode SSDV
+4. Transmit 255 bytes of image *OPTIONAL* 3x with repeat flag on
+5. Transmit rest of image
+6. Release camera buffer
+7. Turn on GPS and grab GPS data
+8. Transmit GPS data 4x
+9. Increase number of tx images by 1
+10. Calculate new sleep time, defined by the curve y=(1/1000)x^2 + 1, where y is sleep time in seconds
+11. Sleep for the amount required

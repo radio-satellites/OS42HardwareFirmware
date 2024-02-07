@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "nanoLib")(type "KiCad")(uri "C:/Users/Sasha/Documents/OS-42-tracker/Receive Station/mini")(options "")(descr ""))
+  (lib (name "radiochip")(type "KiCad")(uri "${KIPRJMOD}/radiochip.pretty")(options "")(descr ""))
+  (lib (name "SX1278_sym")(type "KiCad")(uri "${KIPRJMOD}/radiochip/SX1278_sym.pretty")(options "")(descr ""))
+)

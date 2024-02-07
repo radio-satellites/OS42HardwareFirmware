@@ -1,0 +1,18 @@
+Too many arguments
+usage: fsk_demod [options] (2|4) SampleRate SymbolRate InputModemRawFile OutputFile
+ -c --cs16          The raw input file will be in complex signed 16 bit format.
+ -d --cu8           The raw input file will be in complex unsigned 8 bit format.
+                    If neither -c nor -d are used, the input should be in signed 16 bit format.
+ -f --testframes    Testframe mode, prints stats to stderr when a testframe is detected, if -t (JSON) 
+                    is enabled stats will be in JSON format
+ -t[r] --stats=[r]  Print out modem statistics to stderr in JSON.
+                    r, if provided, sets the number of modem frames between statistic printouts.
+ -s --soft-dec      The output file will be in a soft-decision format, with one 32-bit float per bit.
+                    If -s is not used, the output will be in a 1 byte-per-bit format.
+ -p P               The demod internals operate at a rate of Fs/P, default 8
+                    P must be divisible by the symbol rate. Smaller P values will result in faster
+                    processing but lower demodulation performance. Default 8
+ --fsk_lower freq   lower limit of freq estimator (default 0 for real input, -Fs/2  for complex input)
+ --fsk_upper freq   upper limit of freq estimator (default Fs/2)
+ --nsym Nsym        number of symbols used for estimators. Default 50
+ --mask TxFreqSpace Use "mask" freq estimator (default is "peak" estimator)

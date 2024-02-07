@@ -1,0 +1,4 @@
+- Add extra holes in board for easy balloon mounting ##EDIT: DONE
+- Add 1uF capacitor to LDO regulator input and output ##EDIT: DONE IN ACCORDANCE TO https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP1702-Data-Sheet-DS20002008.pdf
+- LORA POWER IS NOT CONNECTED??? VCC AND GND??? ##EDIT: DONE
+- The power capacitor stabalizer footprint is TINY. It's solderable, but it's a HUGE pain to do ##EDIT: DONE

@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Arduino Pro Mini")(type "KiCad")(uri "${KIPRJMOD}/promini/ARDUINO_PRO_MINI.kicad_sym")(options "")(descr ""))
+  (lib (name "SX1278_sym")(type "KiCad")(uri "${KIPRJMOD}/radiochip/SX1278_sym.kicad_sym")(options "")(descr ""))
+  (lib (name "MCP1702")(type "KiCad")(uri "${KIPRJMOD}/radiochip/MCP1702.kicad_sym")(options "")(descr ""))
+)

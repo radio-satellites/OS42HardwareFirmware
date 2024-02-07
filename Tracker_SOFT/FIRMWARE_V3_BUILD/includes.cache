@@ -1,0 +1,297 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\Sasha\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.14\\cores\\esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\Sasha\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.14\\variants\\esp32"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\FIRMWARE_V3.ino.cpp",
+    "Include": "RadioLib.h",
+    "Includepath": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\FIRMWARE_V3.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\Sasha\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.14\\libraries\\SPI\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\FIRMWARE_V3.ino.cpp",
+    "Include": "TinyGPSPlus.h",
+    "Includepath": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\TinyGPSPlus\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\FIRMWARE_V3.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\rs8.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Temp\\arduino_build_631807\\sketch\\ssdv.c",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\ArduinoHal.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\Hal.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\Module.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\CC1101\\CC1101.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\LLCC68\\LLCC68.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\RF69\\RF69.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\RFM9x\\RFM95.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\RFM9x\\RFM96.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\RFM9x\\RFM97.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX1231\\SX1231.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\STM32WLx.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\STM32WLx_Module.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\SX1261.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\SX1262.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\SX1268.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX126x\\SX126x.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1272.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1273.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1276.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1277.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1278.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX1279.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX127x\\SX127x.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX128x\\SX1280.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX128x\\SX1281.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX128x\\SX1282.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\SX128x\\SX128x.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\Si443x\\Si4430.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\Si443x\\Si4431.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\Si443x\\Si4432.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\Si443x\\Si443x.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\modules\\nRF24\\nRF24.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\AFSK\\AFSK.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\APRS\\APRS.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\AX25\\AX25.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\BellModem\\BellModem.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\ExternalRadio\\ExternalRadio.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\FSK4\\FSK4.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\Hellschreiber\\Hellschreiber.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\Morse\\Morse.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\Pager\\Pager.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\PhysicalLayer\\PhysicalLayer.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\Print\\ITA2String.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\Print\\Print.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\RTTY\\RTTY.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\protocols\\SSTV\\SSTV.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\utils\\CRC.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\utils\\Cryptography.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\RadioLib\\src\\utils\\FEC.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.14\\libraries\\SPI\\src\\SPI.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sasha\\Documents\\Arduino\\libraries\\TinyGPSPlus\\src\\TinyGPS++.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

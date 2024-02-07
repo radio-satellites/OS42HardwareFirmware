@@ -1,0 +1,14 @@
+You will need to calibrate your own SX1278 temperator sensor in order to get accurate results in the OS-42's downlink. 
+
+#Note
+
+This is NOT to be used for precise measurements or sondings of the atmosphere! It is to provide an approximation of the internal temperature of the OS-42 transmitter. 
+
+#Calibration materials 
+
+- A known sensor to work well. If you know your room temperature is 23*C, use that, as the temperature sensor noise will likely cancel that error out.
+
+#Calibration process
+
+- The process is very simple. To calibrate, simply take the internal temperature and subtract it from the known temperature. This is your calibration factor. 
+- Enter the calibration factor into the configuration and flash the firmware.

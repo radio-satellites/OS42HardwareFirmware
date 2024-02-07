@@ -1,0 +1,20 @@
+1x LoRa1278-C1 - $7.24CAD
+2x Pin headers 1x8 - $2CAD
+1x ESP32CAM - $8CAD
+1x GPS module - $5CAD
+1x Power regulator - $0.8CAD
+
+TOTAL: $23.04CAD
+
+-------OPTIONAL OR USEFUL-------
+1x SD Card - Price varies (assumed $14)
+1x LiPo battery - Price varies (assumed $15)
+1x 1x4 female pin header - $1CAD
+
+TOTAL PRICE with battery: $53.04CAD
+
+NEW BOM
+
+AZ1117CH-3.3TRG1 regulator added SO-223
+
+EDIT: MCP1825S-3302E/AB is now used!

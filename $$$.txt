@@ -1,0 +1,7 @@
+$6.30 - ESP32CAM
+$1.0 - PCB
+$7 - radio
+$5 - GPS
+$4 - components
+
+###TOTAL - $23.4
