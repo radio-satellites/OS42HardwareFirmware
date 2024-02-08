@@ -17,6 +17,7 @@
 
 #include <RadioLib.h>
 #include <SPI.h>
+#include <WiFi.h>
 #include <TinyGPSPlus.h>
 
 //Include header files
@@ -52,6 +53,8 @@ void setup() {
   Serial.begin(9600); //This is to configure our GPS
 
   bootCount++;
+
+  WiFi.setSleep(true);
 
   spi.begin(SCK_LORATX, MISO_LORATX, MOSI_LORATX, NSS_LORATX);
   int state = radio.begin();
@@ -115,7 +118,10 @@ void setup() {
     }
   }
 
-  if (SET_FLIGHT_MODE) {
+  if (SET_FLIGHT_MODE_YES) {
+    if (DEBUG_MSG){
+      Serial.print("Waiting for GPS boot...");
+    }
     delay(DELAY_FLIGHT_MODE * 1000);
     setGPS_AirBorne();
     esp_task_wdt_reset();

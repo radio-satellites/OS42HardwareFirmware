@@ -18,10 +18,10 @@ static const char callsign[] = "OS42-T"; // maximum of 6 characters. "T" should 
 
 ////////////////////////ADVANCED SETTINGS////////////////////////
 #define USE_WDT true //Enable/disable watchdog for testing
-#define DEBUG_MSG true //Allow debug messages through the Serial port
+#define DEBUG_MSG false //Allow debug messages through the Serial port
 #define ALLOW_SLEEP false //Do we restart between images? Usually it's not a good idea, unless we have memory issues
 #define CAM_ERROR_DO "TXGPS+RESTART" //What do we do when there is a camera error? Options: RESTART,TXGPS+RESTART,TXGPS
-#define SET_FLIGHT_MODE true //Turn on flight mode?
+#define SET_FLIGHT_MODE_YES true //Turn on flight mode?
 #define DELAY_FLIGHT_MODE 3 //Time to wait for the GPS to boot (only used if above is on)
 #define TIME_TO_SLEEP 3 //Time between cycles
 #define WDT_PANIC 5 //WDT trigger time in seconds
