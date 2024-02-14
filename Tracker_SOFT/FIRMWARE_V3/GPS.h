@@ -1,8 +1,8 @@
 /*
- * A lot of the brilliant UBX parsing code comes from KevWal's implementation here:
- * https://github.com/KevWal/ESP32-Cam-Pico-Project/blob/main/Code/ESP32-Cam-Pico-V3/ESP32-Cam-GPS.h
- * Some of the other code comes from https://stuartsprojects.github.io/2018/08/26/Generating-UBLOX-GPS-Configuration-Messages.html
- *
+   A lot of the brilliant UBX parsing code comes from KevWal's implementation here:
+   https://github.com/KevWal/ESP32-Cam-Pico-Project/blob/main/Code/ESP32-Cam-Pico-V3/ESP32-Cam-GPS.h
+   Some of the other code comes from https://stuartsprojects.github.io/2018/08/26/Generating-UBLOX-GPS-Configuration-Messages.html
+
 */
 const PROGMEM  uint8_t ClearConfig[] = {0xB5, 0x62, 0x06, 0x09, 0x0D, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x01, 0x19, 0x98};
 const PROGMEM  uint8_t GPGLLOff[] = {0xB5, 0x62, 0x06, 0x01, 0x08, 0x00, 0xF0, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x2B};
@@ -46,32 +46,32 @@ int8_t temperature = 0;
 
 
 
-int sendTemperature(){
-  
-  if (USE_WDT){
+int sendTemperature() {
+
+  if (USE_WDT) {
     esp_task_wdt_reset();
   }
 
   char temperature_string[20];
   char datastring[30];
 
-  itoa(temperature,temperature_string,10);
+  itoa(temperature, temperature_string, 10);
 
-  sprintf(datastring, "!!,%s",temperature_string);
+  sprintf(datastring, "!!,%s", temperature_string);
 
   //Send buffer
-  radio.transmit(datastring,sizeof(datastring));
+  radio.transmit(datastring, sizeof(datastring));
 
   return 0;
 }
-  
 
-int sendGPSPacket(){
-  
-  if (USE_WDT){
+
+int sendGPSPacket() {
+
+  if (USE_WDT) {
     esp_task_wdt_reset();
   }
-  
+
   char datastring[255]; //GPS datastring, UKHAS-style
   char alt_string[20];
   char lat_string[20];
@@ -83,80 +83,80 @@ int sendGPSPacket(){
   char second_string[10];
 
   //Convert latitude/longitude into char buffers
-  dtostrf(latitude_OS, 10, 7, lat_string); 
+  dtostrf(latitude_OS, 10, 7, lat_string);
   dtostrf(longitude_OS, 10, 7, long_string);
 
   //Convert frame id
 
-  itoa(frameID,frame_num_string,10);
+  itoa(frameID, frame_num_string, 10);
 
   //Convert altitude
 
-  if (altitude_valid){
+  if (altitude_valid) {
     dtostrf(altitude_OS, 7, 2, alt_string);
   }
-  else{
-    sprintf(alt_string,"UK");
+  else {
+    sprintf(alt_string, "UK");
   }
 
-  if (speed_valid){
+  if (speed_valid) {
     dtostrf(speed_OS, 7, 2, speed_string);
   }
-  else{
-    sprintf(speed_string,"UK");
+  else {
+    sprintf(speed_string, "UK");
   }
 
-  if (time_valid){
+  if (time_valid) {
     dtostrf(time_hour, 2, 0, hour_string);
     dtostrf(time_minute, 2, 0, minute_string);
     dtostrf(time_second, 2, 0, second_string);
   }
-  else{
-    sprintf(hour_string,"UK");
-    sprintf(minute_string,"UK");
-    sprintf(second_string,"UK");
+  else {
+    sprintf(hour_string, "UK");
+    sprintf(minute_string, "UK");
+    sprintf(second_string, "UK");
   }
 
   ///Build buffer
-  sprintf(datastring, "$$,%s,%s,%s,%s,%s,%s,%s,%s",alt_string,lat_string,long_string,speed_string,hour_string,minute_string,second_string,frame_num_string);
+  sprintf(datastring, "$$,%s,%s,%s,%s,%s,%s,%s,%s", alt_string, lat_string, long_string, speed_string, hour_string, minute_string, second_string, frame_num_string);
 
   //Send buffer
-  radio.transmit(datastring,sizeof(datastring));
+  radio.transmit(datastring, sizeof(datastring));
 
   frameID++;
-  
+
   return sizeof(datastring);
 }
 
-void checkGPS(){
-  while (Serial.available() > 0){
-    if (USE_WDT){
+void checkGPS() {
+  while (Serial.available() > 0) {
+    if (USE_WDT) {
       esp_task_wdt_reset();
     }
-    if (gps.encode(Serial.read())){
-      if (gps.location.isValid()){
+    if (gps.encode(Serial.read())) {
+      if (gps.location.isValid()) {
         latitude_OS = gps.location.lat();
         longitude_OS = gps.location.lng();
         loc_valid = true;
       }
-      if (gps.altitude.isValid()){
+      if (gps.altitude.isValid()) {
         altitude_OS = gps.altitude.meters();
         altitude_valid = true;
       }
 
-      if (gps.speed.isValid()){
+      if (gps.speed.isValid()) {
         speed_OS = gps.speed.mps(); //Speed in m/s
         speed_valid = true;
       }
 
-      if (gps.satellites.isValid()){ //Satellites indicates we have lock, hence time
+      if (gps.satellites.isValid()) { //Satellites indicates we have lock, hence time
         time_hour = gps.time.hour();
         time_minute = gps.time.minute();
         time_second = gps.time.second();
-        
+
         time_valid = true;
-      }     
-      
+      }
+
     }
   }
 }
@@ -175,14 +175,14 @@ void SendConfig(const uint8_t *Progmem_ptr, uint8_t arraysize) //Syntax: GPS obj
 
 }
 
-void setGPS_AirBorne(){ //Sets GPS to 1g airborne mode
-  if (DEBUG_MSG){
+void setGPS_AirBorne() { //Sets GPS to 1g airborne mode
+  if (DEBUG_MSG) {
     Serial.print("About to send GPS config!");
-    
+
   }
   esp_task_wdt_reset();
-  SendConfig(Set1G,sizeof(Set1G));
-  if (DEBUG_MSG){
+  SendConfig(Set1G, sizeof(Set1G));
+  if (DEBUG_MSG) {
     Serial.print("Sent!");
   }
   esp_task_wdt_reset();
@@ -190,9 +190,9 @@ void setGPS_AirBorne(){ //Sets GPS to 1g airborne mode
 
 /*
 
-void sendUBX(const uint8_t *MSG, uint8_t len)
-{
-  
+  void sendUBX(const uint8_t *MSG, uint8_t len)
+  {
+
   Serial.flush();
   Serial.write(0xFF);
   delay(500);
@@ -200,10 +200,10 @@ void sendUBX(const uint8_t *MSG, uint8_t len)
     //Serial.write(MSG[i]);
     Serial.write(pgm_read_byte(MSG + i));
   }
-}
+  }
 
-boolean getUBX_ACK(const uint8_t *MSG)
-{
+  boolean getUBX_ACK(const uint8_t *MSG)
+  {
   uint8_t b;
   uint8_t ackByteID = 0;
   uint8_t ackPacket[10];
@@ -247,11 +247,11 @@ boolean getUBX_ACK(const uint8_t *MSG)
       }
     }
   }
-}
+  }
 
 
-void setGPS_AirBorne() // < 1g
-{
+  void setGPS_AirBorne() // < 1g
+  {
   const static uint8_t PROGMEM setdm6[44] = {
     0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0xFF, 0xFF, 0x06,
     0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, 0x00, 0x00,
@@ -260,29 +260,29 @@ void setGPS_AirBorne() // < 1g
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0xDC
   };
   sendUBX(setdm6, 44);
-}
+  }
 
-void gps_reset()
-{
+  void gps_reset()
+  {
   const static uint8_t PROGMEM set_reset[12] = {0xB5, 0x62, 0x06, 0x04, 0x04, 0x00, 0xFF, 0x87, 0x00, 0x00, 0x94, 0xF5};
   sendUBX(set_reset, 12);
   getUBX_ACK(set_reset);
-}
+  }
 
 
-void gps_set_max()
-{
+  void gps_set_max()
+  {
   const static uint8_t PROGMEM setMax[10] = {0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x00, 0x21, 0x91};
   sendUBX(setMax, 10);
   getUBX_ACK(setMax);
-}
+  }
 
-void gps_set_min()
-{
+  void gps_set_min()
+  {
   // Cyclic 1 second, from here: https://ukhas.org.uk/guides:ublox_psm
   const static uint8_t PROGMEM setPSM[10] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x01, 0x22, 0x92 };
   sendUBX(setPSM, 10);
   getUBX_ACK(setPSM);
-}
+  }
 
 */

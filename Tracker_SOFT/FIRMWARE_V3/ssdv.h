@@ -54,7 +54,7 @@ typedef struct
   uint16_t pkt_size_payload;
   uint16_t pkt_size_crcdata;
   int pkt_size;
-  
+
   /* Image information */
   uint16_t width;
   uint16_t height;
@@ -67,26 +67,26 @@ typedef struct
   uint8_t  quality;   /* JPEG quality level for encoding, 0-7         */
   uint16_t packet_mcu_id;
   uint8_t  packet_mcu_offset;
-  
+
   /* Source buffer */
   uint8_t *inp;      /* Pointer to next input byte                    */
   size_t in_len;     /* Number of input bytes remaining               */
   size_t in_skip;    /* Number of input bytes to skip                 */
-  
+
   /* Source bits */
   uint32_t workbits; /* Input bits currently being worked on          */
   uint8_t worklen;   /* Number of bits in the input bit buffer        */
-  
+
   /* JPEG / Packet output buffer */
   uint8_t *out;      /* Pointer to the beginning of the output buffer */
   uint8_t *outp;     /* Pointer to the next output byte               */
   size_t out_len;    /* Number of output bytes remaining              */
   char out_stuff;    /* Flag to add stuffing bytes to output          */
-  
+
   /* Output bits */
   uint32_t outbits;  /* Output bit buffer                             */
   uint8_t outlen;    /* Number of bits in the output bit buffer       */
-  
+
   /* JPEG decoder state */
   enum {
     S_MARKER = 0,
@@ -117,17 +117,17 @@ typedef struct
   uint32_t reset_mcu; /* MCU block to do absolute encoding            */
   uint32_t next_reset_mcu;
   char needbits;      /* Number of bits needed to decode integer      */
-  
+
   /* The input huffman and quantisation tables */
   uint8_t stbls[TBL_LEN + HBUFF_LEN];
   uint8_t *sdht[2][2], *sdqt[2];
   uint16_t stbl_len;
-  
+
   /* The same for output */
   uint8_t dtbls[TBL_LEN];
   uint8_t *ddht[2][2], *ddqt[2];
   uint16_t dtbl_len;
-  
+
 } ssdv_t;
 
 typedef struct {

@@ -93,16 +93,16 @@ bool configInitCamera()
   return true;
 }
 
-int iread(uint8_t *buffer,int numBytes,camera_fb_t *fb, int fbIndex ){
+int iread(uint8_t *buffer, int numBytes, camera_fb_t *fb, int fbIndex ) {
   int bufSize = 0;
   // have we reached past the end of the image buffer?
-  if((fbIndex + numBytes ) < fb->len) {
+  if ((fbIndex + numBytes ) < fb->len) {
     bufSize = numBytes;
   }  else  {
     bufSize = fb->len - fbIndex;
   }
   // clear the dest buffer
-  memset(buffer,0,numBytes);
-  memcpy(buffer,&fb->buf[fbIndex],bufSize);
+  memset(buffer, 0, numBytes);
+  memcpy(buffer, &fb->buf[fbIndex], bufSize);
   return bufSize;
 }

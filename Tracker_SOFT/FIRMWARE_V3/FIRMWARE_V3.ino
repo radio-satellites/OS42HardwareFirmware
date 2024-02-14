@@ -123,7 +123,7 @@ void setup() {
   if (SET_FLIGHT_MODE_YES) {
     Serial.end();
     Serial.begin(9600);
-    if (DEBUG_MSG){
+    if (DEBUG_MSG) {
       Serial.print("Waiting for GPS boot...");
     }
     delay(DELAY_FLIGHT_MODE * 1000);
@@ -141,55 +141,54 @@ void setup() {
 }
 
 void loop() {
-  if (LPM_rotations <= LPM_ITERATIONS and LPM_rotations >= IMAGERY_START_ITERATIONS){
-    
-  
-  if (txSSDV) {
-    //Take picture and send
-    camera_fb_t * fb = NULL;
-    fb = esp_camera_fb_get();
-    if (DEBUG_MSG) {
-      Serial.print("Got picture...");
-    }
-    process_ssdv(fb);
-    esp_camera_fb_return(fb); //Free frame buffer
-  }
-  else {
-    //Send a bunch of GPS telemetry packets
-    radio.setSpreadingFactor(7);
-    radio.setBandwidth(125.0);
-    radio.setCodingRate(8);
+  if (LPM_rotations <= LPM_ITERATIONS and LPM_rotations >= IMAGERY_START_ITERATIONS) {
 
-    for (int i = 0; i < 10; i++) {
-      checkGPS();
-      sendGPSPacket();
-      esp_task_wdt_reset();
+    if (txSSDV) {
+      //Take picture and send
+      camera_fb_t * fb = NULL;
+      fb = esp_camera_fb_get();
+      if (DEBUG_MSG) {
+        Serial.print("Got picture...");
+      }
+      process_ssdv(fb);
+      esp_camera_fb_return(fb); //Free frame buffer
     }
-  }
-  if (ALLOW_SLEEP) {
-    //Turn off transmitter and sleep
-    if (DEBUG_MSG) {
-      Serial.print("Going to sleep!");
-    }
-    radio.reset();
-    sleepNow();
-  }
-  else {
-    if (DEBUG_MSG) {
-      Serial.print("Delaying!");
-    }
-    for (int i = 0; i < TIME_TO_SLEEP * 10; i++) {
-      delay(100);
-      if (USE_WDT) {
+    else {
+      //Send a bunch of GPS telemetry packets
+      radio.setSpreadingFactor(7);
+      radio.setBandwidth(125.0);
+      radio.setCodingRate(8);
+
+      for (int i = 0; i < 10; i++) {
+        checkGPS();
+        sendGPSPacket();
         esp_task_wdt_reset();
       }
-      checkGPS();
-      sendGPSPacket();
     }
+    if (ALLOW_SLEEP) {
+      //Turn off transmitter and sleep
+      if (DEBUG_MSG) {
+        Serial.print("Going to sleep!");
+      }
+      radio.reset();
+      sleepNow();
+    }
+    else {
+      if (DEBUG_MSG) {
+        Serial.print("Delaying!");
+      }
+      for (int i = 0; i < TIME_TO_SLEEP * 10; i++) {
+        delay(100);
+        if (USE_WDT) {
+          esp_task_wdt_reset();
+        }
+        checkGPS();
+        sendGPSPacket();
+      }
 
+    }
   }
-  }
-  else if (LPM_rotations > LPM_ITERATIONS){
+  else if (LPM_rotations > LPM_ITERATIONS) {
     //Low power mode is on!
     //First, tx some GPS packets
     LPM_rotations++;
@@ -202,7 +201,7 @@ void loop() {
       sendGPSPacket();
     }
     //Now, we might occasionally send an image
-    if (LPM_rotations % 5 == 0){
+    if (LPM_rotations % 5 == 0) {
       if (txSSDV) {
         camera_fb_t * fb = NULL;
         fb = esp_camera_fb_get();
@@ -213,9 +212,9 @@ void loop() {
         esp_camera_fb_return(fb); //Free frame buffer
       }
     }
-    sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory. 
+    sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory.
   }
-  else{
+  else {
     //We're just beginning the flight, let's TX some GPS packets
     for (int i = 0; i < 20; i++) {
       delay(1000);

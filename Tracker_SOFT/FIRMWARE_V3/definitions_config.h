@@ -1,9 +1,9 @@
 ////////////////////////CHANGE THESE////////////////////////
 //Change these for a regular flight. These are the "basic" settings
-static const char callsign[] = "OS42-1"; // maximum of 6 characters. "T" should be used for testing, "X" for unknown and any other letter of the alphabet to differentiate between flights 
+static const char callsign[] = "OS42-1"; // maximum of 6 characters. "T" should be used for testing, "X" for unknown and any other letter of the alphabet to differentiate between flights
 #define TEMP_CALIB 2 //Calibration factor for temperature sensor. Calibrate your own sensor. See calibration.txt.
 #define GPS_INTERLEAVE 3 //Send a GPS packet every X imagery packets
-#define IMAGERY_START_ITERATIONS 150 //After X initial GPS telemetry cycles, start sending imagery
+#define IMAGERY_START_ITERATIONS  60 //After X initial GPS telemetry cycles, start sending imagery
 #define LPM_ITERATIONS 170 //After X images, we go into low power mode
 
 //Radio power levels
@@ -20,7 +20,7 @@ static const char callsign[] = "OS42-1"; // maximum of 6 characters. "T" should 
 
 ////////////////////////ADVANCED SETTINGS////////////////////////
 #define USE_WDT true //Enable/disable watchdog for testing
-#define DEBUG_MSG true //Allow debug messages through the Serial port
+#define DEBUG_MSG false //Allow debug messages through the Serial port
 #define ALLOW_SLEEP false //Do we restart between images? Usually it's not a good idea, unless we have memory issues
 #define CAM_ERROR_DO "TXGPS+RESTART" //What do we do when there is a camera error? Options: RESTART,TXGPS+RESTART,TXGPS
 #define SET_FLIGHT_MODE_YES true //Turn on flight mode?
