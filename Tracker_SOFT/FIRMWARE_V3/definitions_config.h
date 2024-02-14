@@ -3,6 +3,7 @@
 static const char callsign[] = "OS42-1"; // maximum of 6 characters. "T" should be used for testing, "X" for unknown and any other letter of the alphabet to differentiate between flights 
 #define TEMP_CALIB 2 //Calibration factor for temperature sensor. Calibrate your own sensor. See calibration.txt.
 #define GPS_INTERLEAVE 3 //Send a GPS packet every X imagery packets
+#define IMAGERY_START_ITERATIONS 150 //After X initial GPS telemetry cycles, start sending imagery
 #define LPM_ITERATIONS 170 //After X images, we go into low power mode
 
 //Radio power levels

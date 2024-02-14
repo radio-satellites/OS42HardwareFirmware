@@ -141,7 +141,7 @@ void setup() {
 }
 
 void loop() {
-  if (LPM_rotations <= LPM_ITERATIONS){
+  if (LPM_rotations <= LPM_ITERATIONS and LPM_rotations >= IMAGERY_START_ITERATIONS){
     
   
   if (txSSDV) {
@@ -189,11 +189,11 @@ void loop() {
 
   }
   }
-  else{
+  else if (LPM_rotations > LPM_ITERATIONS){
     //Low power mode is on!
     //First, tx some GPS packets
     LPM_rotations++;
-    for (int i = 0; i < TIME_TO_SLEEP * 10; i++) {
+    for (int i = 0; i < 20; i++) {
       delay(1000);
       if (USE_WDT) {
         esp_task_wdt_reset();
@@ -214,6 +214,17 @@ void loop() {
       }
     }
     sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory. 
+  }
+  else{
+    //We're just beginning the flight, let's TX some GPS packets
+    for (int i = 0; i < 20; i++) {
+      delay(1000);
+      if (USE_WDT) {
+        esp_task_wdt_reset();
+      }
+      checkGPS();
+      sendGPSPacket();
+    }
   }
   LPM_rotations++;
 }
