@@ -35,6 +35,8 @@
 
 unsigned long previousMicros = micros(); //Timer in uS.
 
+RTC_DATA_ATTR int LPM_rotations = 0;
+
 int transmit_wait_factor = 1000; //Number of uS to wait during tx
 
 #if defined(ESP8266) || defined(ESP32)
@@ -50,7 +52,7 @@ void setup() {
     esp_task_wdt_add(NULL); //add current thread to WDT watch
   }
   //-----------------------------------------------------
-  Serial.begin(9600); //This is to configure our GPS
+  Serial.begin(115200); //This is to configure our GPS
 
   bootCount++;
 
@@ -119,10 +121,13 @@ void setup() {
   }
 
   if (SET_FLIGHT_MODE_YES) {
+    Serial.end();
+    Serial.begin(9600);
     if (DEBUG_MSG){
       Serial.print("Waiting for GPS boot...");
     }
     delay(DELAY_FLIGHT_MODE * 1000);
+    esp_task_wdt_reset();
     setGPS_AirBorne();
     esp_task_wdt_reset();
     delay(200);
@@ -136,6 +141,9 @@ void setup() {
 }
 
 void loop() {
+  if (LPM_rotations <= LPM_ITERATIONS){
+    
+  
   if (txSSDV) {
     //Take picture and send
     camera_fb_t * fb = NULL;
@@ -180,5 +188,32 @@ void loop() {
     }
 
   }
-
+  }
+  else{
+    //Low power mode is on!
+    //First, tx some GPS packets
+    LPM_rotations++;
+    for (int i = 0; i < TIME_TO_SLEEP * 10; i++) {
+      delay(1000);
+      if (USE_WDT) {
+        esp_task_wdt_reset();
+      }
+      checkGPS();
+      sendGPSPacket();
+    }
+    //Now, we might occasionally send an image
+    if (LPM_rotations % 5 == 0){
+      if (txSSDV) {
+        camera_fb_t * fb = NULL;
+        fb = esp_camera_fb_get();
+        if (DEBUG_MSG) {
+          Serial.print("Got picture...");
+        }
+        process_ssdv(fb);
+        esp_camera_fb_return(fb); //Free frame buffer
+      }
+    }
+    sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory. 
+  }
+  LPM_rotations++;
 }

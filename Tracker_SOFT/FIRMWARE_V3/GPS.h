@@ -176,7 +176,16 @@ void SendConfig(const uint8_t *Progmem_ptr, uint8_t arraysize) //Syntax: GPS obj
 }
 
 void setGPS_AirBorne(){ //Sets GPS to 1g airborne mode
+  if (DEBUG_MSG){
+    Serial.print("About to send GPS config!");
+    
+  }
+  esp_task_wdt_reset();
   SendConfig(Set1G,sizeof(Set1G));
+  if (DEBUG_MSG){
+    Serial.print("Sent!");
+  }
+  esp_task_wdt_reset();
 }
 
 /*

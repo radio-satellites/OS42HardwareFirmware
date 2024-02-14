@@ -67,3 +67,10 @@ void sleepNow(){
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   esp_deep_sleep_start();
 }
+void sleepNow_LPM(){
+  if (USE_WDT){
+    esp_task_wdt_reset();
+  }
+  esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP_LPM * uS_TO_S_FACTOR);
+  esp_deep_sleep_start();
+}
