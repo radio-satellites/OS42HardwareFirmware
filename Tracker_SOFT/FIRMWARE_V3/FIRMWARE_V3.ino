@@ -192,8 +192,8 @@ void loop() {
     //Low power mode is on!
     //First, tx some GPS packets
     LPM_rotations++;
-    for (int i = 0; i < 20; i++) {
-      delay(1000);
+    for (int i = 0; i < 40; i++) {
+      delay(500);
       if (USE_WDT) {
         esp_task_wdt_reset();
       }
@@ -201,7 +201,7 @@ void loop() {
       sendGPSPacket();
     }
     //Now, we might occasionally send an image
-    if (LPM_rotations % 5 == 0) {
+    if (LPM_rotations % 10 == 0) {
       if (txSSDV) {
         camera_fb_t * fb = NULL;
         fb = esp_camera_fb_get();
@@ -212,12 +212,12 @@ void loop() {
         esp_camera_fb_return(fb); //Free frame buffer
       }
     }
-    sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory.
+    //sleepNow_LPM(); //Now, let's sleep. LPM_rotations is stored in RTC memory.
   }
   else {
     //We're just beginning the flight, let's TX some GPS packets
-    for (int i = 0; i < 20; i++) {
-      delay(1000);
+    for (int i = 0; i < 40; i++) {
+      delay(500);
       if (USE_WDT) {
         esp_task_wdt_reset();
       }
