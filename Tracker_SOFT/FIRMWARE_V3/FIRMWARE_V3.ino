@@ -177,13 +177,16 @@ void loop() {
       if (DEBUG_MSG) {
         Serial.print("Delaying!");
       }
-      for (int i = 0; i < TIME_TO_SLEEP * 10; i++) {
-        delay(100);
+      for (int i = 0; i < TIME_TO_SLEEP * 2; i++) {
+        delay(500);
         if (USE_WDT) {
           esp_task_wdt_reset();
         }
         checkGPS();
         sendGPSPacket();
+        //Send one temperature packet
+        handleTemperature();
+        sendTemperature();
       }
 
     }
@@ -199,7 +202,10 @@ void loop() {
       }
       checkGPS();
       sendGPSPacket();
-    }
+      //Send one temperature packet
+      handleTemperature();
+      sendTemperature();
+      }
     //Now, we might occasionally send an image
     if (LPM_rotations % 10 == 0) {
       if (txSSDV) {
@@ -223,6 +229,9 @@ void loop() {
       }
       checkGPS();
       sendGPSPacket();
+      //Send one temperature packet
+      handleTemperature();
+      sendTemperature();
     }
   }
   LPM_rotations++;
