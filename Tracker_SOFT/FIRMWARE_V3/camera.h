@@ -42,24 +42,25 @@ bool configInitCamera()
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;      //YUV422,GRAYSCALE,RGB565,JPEG
+  config.grab_mode = CAMERA_GRAB_LATEST;
 
   //Select lower framesize if the camera doesn't support PSRAM
   if (psramFound())
   {
     //Serial.println(F("PSRAM found"));
-    config.frame_size = FRAMESIZE_VGA;      //FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA, XUGA == 100K+, SVGA = 25K+ // QVGA = 320x240, VGA = 640x480, SVGA = 800x600 (Not div 16!), XGA = 1024x768, SXGA = 1280x1024, UXGA = 1600x1200
-    config.jpeg_quality = 10;                //10-63 lower number means higher quality
-    config.fb_count = 2;
+    config.frame_size = FRAMESIZE_XGA;      //FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA, XUGA == 100K+, SVGA = 25K+ // QVGA = 320x240, VGA = 640x480, SVGA = 800x600 (Not div 16!), XGA = 1024x768, SXGA = 1280x1024, UXGA = 1600x1200
+    config.jpeg_quality = 10;                //0-63 lower number means higher quality
+    config.fb_count = 1;
   }
   else
   {
     //Serial.println(F("No PSRAM"));
     config.frame_size = FRAMESIZE_VGA;
-    config.jpeg_quality = 12;
+    config.jpeg_quality = 15;
     config.fb_count = 1;
   }
 
-  esp_err_t err = esp_camera_init(&config);   //Initialize the Camera
+  esp_err_t err = esp_camera_init(&config);   //Initialize the camera
   if (err != ESP_OK)
   {
     Serial.printf("Camera init failed with error 0x%x", err);

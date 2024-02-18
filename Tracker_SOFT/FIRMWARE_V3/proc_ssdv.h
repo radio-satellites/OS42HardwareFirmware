@@ -1,5 +1,3 @@
-uint8_t jpgRes                     = JPEG_RESOLUTION;
-uint8_t jpgQuality                 = JPEG_QUALITY;
 uint32_t imgSize                   = 0;
 uint32_t imgCount                  = 1;
 uint8_t ssdvQuality                = SSDV_QUALITY;
