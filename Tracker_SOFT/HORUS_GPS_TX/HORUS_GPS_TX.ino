@@ -48,6 +48,14 @@ uint16_t packet_count = 1;  // Packet counter
 
 int8_t temperature = 0;
 
+byte horusPacket[] = {
+  0x45, 0x24, 0x24, 0x48, 0x2F, 0x12, 0x16, 0x08, 0x15, 0xC1,
+  0x49, 0xB2, 0x06, 0xFC, 0x92, 0xEB, 0x93, 0xD7, 0xEE, 0x5D,
+  0x35, 0xA0, 0x91, 0xDA, 0x8D, 0x5F, 0x85, 0x6B, 0x63, 0x03,
+  0x6B, 0x60, 0xEA, 0xFE, 0x55, 0x9D, 0xF1, 0xAB, 0xE5, 0x5E,
+  0xDB, 0x7C, 0xDB, 0x21, 0x5A, 0x19
+};
+
 
 // Horus Binary Packet Structure - Version 1
 struct HorusBinaryPacketV1
@@ -159,7 +167,7 @@ void setup() {
   //fsk4_setup(&radio, 434.0, 244, 100);
   fsk4.begin(434.0, 244, 100);
   
-  //fsk4.idle();
+  fsk4.idle();
   
 }
 
@@ -167,6 +175,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   while(read_GPS){
    while (Serial.available() > 0){
+    fsk4.write(27); //Preamble
+     fsk4.write(horusPacket, 45);//Just write example frames
     if (gps.encode(Serial.read())){
       if (gps.location.isValid()){
         latitude_OS = gps.location.lat();
@@ -208,6 +218,5 @@ void loop() {
   handleTemperature();
   
   handleGPS();
-
-  
+ 
 }

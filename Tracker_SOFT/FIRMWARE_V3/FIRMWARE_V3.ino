@@ -37,7 +37,7 @@ unsigned long previousMicros = micros(); //Timer in uS.
 
 RTC_DATA_ATTR int LPM_rotations = 0;
 
-int transmit_wait_factor = 1000; //Number of uS to wait during tx
+//int transmit_wait_factor = 1000; //Number of uS to wait during tx
 
 #if defined(ESP8266) || defined(ESP32)
 ICACHE_RAM_ATTR
@@ -147,6 +147,7 @@ void loop() {
       //Take picture and send
       camera_fb_t * fb = NULL;
       fb = esp_camera_fb_get();
+      
       if (DEBUG_MSG) {
         Serial.print("Got picture...");
       }
