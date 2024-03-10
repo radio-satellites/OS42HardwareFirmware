@@ -16,6 +16,7 @@ static const char callsign[] = "OS42-1"; // maximum of 6 characters. "T" should 
 #define RADIO_USERFO false //Used for lower power levels. 
 
 #define txSSDV true //Enable/disable SSDV functionality. If off, we will send a lot of GPS telemetry packets
+#define TYPE_GPS "10S" //What GPS is hooked up to the port? "6M" supports all legacy NEO-6M GPS modules. "10S" supports MAX-10S and clones. NOTE: NEO-6M is less stable and you might need to restart many times to get the nav mode on. 
 ////////////////////////////////////////////////////////////
 
 ////////////////////////ADVANCED SETTINGS////////////////////////

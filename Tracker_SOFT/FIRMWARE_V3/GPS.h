@@ -1,9 +1,11 @@
 /*
-   A lot of the brilliant UBX parsing code comes from KevWal's implementation here:
-   https://github.com/KevWal/ESP32-Cam-Pico-Project/blob/main/Code/ESP32-Cam-Pico-V3/ESP32-Cam-GPS.h
+   A lot of the brilliant UBX parsing code comes from UKHAS's implementation here:
+   https://ukhas.org.uk/doku.php?id=guides:ublox6
    Some of the other code comes from https://stuartsprojects.github.io/2018/08/26/Generating-UBLOX-GPS-Configuration-Messages.html
 
 */
+
+//NEO-6M
 const PROGMEM  uint8_t ClearConfig[] = {0xB5, 0x62, 0x06, 0x09, 0x0D, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0x01, 0x19, 0x98};
 const PROGMEM  uint8_t GPGLLOff[] = {0xB5, 0x62, 0x06, 0x01, 0x08, 0x00, 0xF0, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x01, 0x2B};
 const PROGMEM  uint8_t GPGSVOff[] = {0xB5, 0x62, 0x06, 0x01, 0x08, 0x00, 0xF0, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x39};
@@ -20,6 +22,14 @@ const PROGMEM  uint8_t Set1G[] = {0xb5, 0x62, 0x06, 0x24, 0x24, 0x00, 0xff, 0xff
 const PROGMEM  uint8_t GNSSOff[] = {0xb5, 0x62, 0x06, 0x57, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x50, 0x4f, 0x54, 0x53, 0xac, 0x85};
 const PROGMEM  uint8_t GNSSOn[] = {0xb5, 0x62, 0x06, 0x57, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x20, 0x4e, 0x55, 0x52, 0x7b, 0xc3};
 const PROGMEM  uint8_t SetSoftwareBackup[] = {0xb5, 0x62, 0x06, 0x57, 0x08, 0x00, 0x01, 0x00, 0x00, 0x00, 0x50, 0x4b, 0x43, 0x42, 0x86, 0x46};
+
+
+//MAX-10S
+
+uint8_t Set1G_10S[] = {0xB5, 0x62, 0x06, 0x8A, 0x09, 0x00, 0x01, 0x01, 0x00, 0x00, 0x21, 0x00, 0x11, 0x20, 0x06, 0xF3, 0x58};
+uint8_t SetPassive_10S[] = {0xB5, 0x62, 0x06, 0x8A, 0x09, 0x00, 0x01, 0x01, 0x00, 0x00, 0x10, 0x00, 0x41, 0x20, 0x01, 0x0D, 0x8E};
+byte gps_set_success = 0;
+
 
 SPIClass spi(HSPI);
 SPISettings spiSettings(2000000, MSBFIRST, SPI_MODE0);
@@ -161,6 +171,74 @@ void checkGPS() {
   }
 }
 
+void sendUBX(uint8_t *MSG, uint8_t len) {
+  for (int i = 0; i < len; i++) {
+    Serial.write(MSG[i]);
+    //mySerial.print(MSG[i], HEX);
+  }
+  Serial.println();
+}
+boolean getUBX_ACK(uint8_t *MSG) {
+  uint8_t b;
+  uint8_t ackByteID = 0;
+  uint8_t ackPacket[10];
+  unsigned long startTime = millis();
+  //Serial.print(" * Reading ACK response: ");
+
+  // Construct the expected ACK packet
+  ackPacket[0] = 0xB5;  // header
+  ackPacket[1] = 0x62;  // header
+  ackPacket[2] = 0x05;  // class
+  ackPacket[3] = 0x01;  // id
+  ackPacket[4] = 0x02;  // length
+  ackPacket[5] = 0x00;
+  ackPacket[6] = MSG[2];  // ACK class
+  ackPacket[7] = MSG[3];  // ACK id
+  ackPacket[8] = 0;   // CK_A
+  ackPacket[9] = 0;   // CK_B
+
+  // Calculate the checksums
+  for (uint8_t i = 2; i < 8; i++) {
+    ackPacket[8] = ackPacket[8] + ackPacket[i];
+    ackPacket[9] = ackPacket[9] + ackPacket[8];
+  }
+
+  while (1) {
+
+    // Test for success
+    if (ackByteID > 9) {
+      // All packets in order!
+      if (DEBUG_MSG) {
+        Serial.println(" (SUCCESS!)");
+      }
+      return true;
+    }
+
+    // Timeout if no valid response in 3 seconds
+    if (millis() - startTime > 3000) {
+      if (DEBUG_MSG) {
+        Serial.println(" (FAILED!)");
+      }
+      return false;
+    }
+
+    // Make sure data is available to read
+    if (Serial.available()) {
+      b = Serial.read();
+
+      // Check that bytes arrive in sequence as per expected ACK packet
+      if (b == ackPacket[ackByteID]) {
+        ackByteID++;
+        //mySerial.print(b, HEX);
+      }
+      else {
+        ackByteID = 0;  // Reset and look again, invalid order
+      }
+
+    }
+  }
+}
+
 void SendConfig(const uint8_t *Progmem_ptr, uint8_t arraysize) //Syntax: GPS object to send to, command array, command array size
 {
   uint8_t byteread, index;
@@ -175,9 +253,22 @@ void SendConfig(const uint8_t *Progmem_ptr, uint8_t arraysize) //Syntax: GPS obj
 
 }
 
-void setGPS_AirBorne() { //Sets GPS to 1g airborne mode
+
+void setGPS_AirBorne_10S(){
+  //Don't send any Serial before
+  while(!gps_set_success){
+    delay(200);
+    sendUBX(Set1G_10S,17); //Send 1G config
+    gps_set_success = getUBX_ACK(Set1G_10S);
+  }
+
+  //Just set passive mode as well
+  sendUBX(SetPassive_10S,17);
+}
+
+void setGPS_AirBorne_6M() { //Sets NEO-6M GPS to 1g airborne mode
   if (DEBUG_MSG) {
-    Serial.print("About to send GPS config!");
+    Serial.print("About to send NEO-6M GPS config!");
 
   }
   esp_task_wdt_reset();
@@ -187,102 +278,3 @@ void setGPS_AirBorne() { //Sets GPS to 1g airborne mode
   }
   esp_task_wdt_reset();
 }
-
-/*
-
-  void sendUBX(const uint8_t *MSG, uint8_t len)
-  {
-
-  Serial.flush();
-  Serial.write(0xFF);
-  delay(500);
-  for (int i = 0; i < len; i++) {
-    //Serial.write(MSG[i]);
-    Serial.write(pgm_read_byte(MSG + i));
-  }
-  }
-
-  boolean getUBX_ACK(const uint8_t *MSG)
-  {
-  uint8_t b;
-  uint8_t ackByteID = 0;
-  uint8_t ackPacket[10];
-  uint32_t startTime = millis();
-
-  // Construct the expected ACK packet
-  ackPacket[0] = 0xB5; // header
-  ackPacket[1] = 0x62; // header
-  ackPacket[2] = 0x05; // class
-  ackPacket[3] = 0x01; // id
-  ackPacket[4] = 0x02; // length
-  ackPacket[5] = 0x00;
-  ackPacket[6] = pgm_read_byte(MSG + 2); // ACK class
-  ackPacket[7] = pgm_read_byte(MSG + 3); // ACK id
-  ackPacket[8] = 0; // CK_A
-  ackPacket[9] = 0; // CK_B
-
-  // Calculate the checksums
-  for (uint8_t ubxi = 2; ubxi < 8; ubxi++) {
-    ackPacket[8] = ackPacket[8] + ackPacket[ubxi];
-    ackPacket[9] = ackPacket[9] + ackPacket[8];
-  }
-
-  while (1) {
-    // Test for success
-    if (ackByteID > 9) {
-      // All packets in order!
-      return true;
-    }
-    if (millis() - startTime > 2000) {
-      return false;
-    }
-    // Make sure data is available to read
-    if (Serial.available()) {
-      b = Serial.read();
-      if (b == ackPacket[ackByteID]) {
-        ackByteID++;
-      }
-      else {
-        ackByteID = 0;
-      }
-    }
-  }
-  }
-
-
-  void setGPS_AirBorne() // < 1g
-  {
-  const static uint8_t PROGMEM setdm6[44] = {
-    0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0xFF, 0xFF, 0x06,
-    0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, 0x00, 0x00,
-    0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00, 0x64, 0x00, 0x2C,
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0xDC
-  };
-  sendUBX(setdm6, 44);
-  }
-
-  void gps_reset()
-  {
-  const static uint8_t PROGMEM set_reset[12] = {0xB5, 0x62, 0x06, 0x04, 0x04, 0x00, 0xFF, 0x87, 0x00, 0x00, 0x94, 0xF5};
-  sendUBX(set_reset, 12);
-  getUBX_ACK(set_reset);
-  }
-
-
-  void gps_set_max()
-  {
-  const static uint8_t PROGMEM setMax[10] = {0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x00, 0x21, 0x91};
-  sendUBX(setMax, 10);
-  getUBX_ACK(setMax);
-  }
-
-  void gps_set_min()
-  {
-  // Cyclic 1 second, from here: https://ukhas.org.uk/guides:ublox_psm
-  const static uint8_t PROGMEM setPSM[10] = { 0xB5, 0x62, 0x06, 0x11, 0x02, 0x00, 0x08, 0x01, 0x22, 0x92 };
-  sendUBX(setPSM, 10);
-  getUBX_ACK(setPSM);
-  }
-
-*/

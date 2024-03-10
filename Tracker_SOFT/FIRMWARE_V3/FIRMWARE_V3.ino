@@ -121,21 +121,34 @@ void setup() {
   }
 
   if (SET_FLIGHT_MODE_YES) {
-    Serial.end();
-    Serial.begin(9600);
-    if (DEBUG_MSG) {
-      Serial.print("Waiting for GPS boot...");
+    Serial.end(); //End to change baud rate. 38400 for 10S and 9600 for 6M
+    if (strcmp(TYPE_GPS, "6M") == 0){
+      Serial.begin(9600);
+      if (DEBUG_MSG) {
+        Serial.print("Waiting for NEO-6M GPS boot...");
+      }
+      delay(DELAY_FLIGHT_MODE * 1000);
+      esp_task_wdt_reset();
+      setGPS_AirBorne_6M();
+      esp_task_wdt_reset();
+      delay(200);
+      setGPS_AirBorne_6M();
+      esp_task_wdt_reset();
+      delay(200);
+      setGPS_AirBorne_6M();
+      esp_task_wdt_reset();
     }
-    delay(DELAY_FLIGHT_MODE * 1000);
-    esp_task_wdt_reset();
-    setGPS_AirBorne();
-    esp_task_wdt_reset();
-    delay(200);
-    setGPS_AirBorne();
-    esp_task_wdt_reset();
-    delay(200);
-    setGPS_AirBorne();
-    esp_task_wdt_reset();
+    else{
+      Serial.begin(38400);
+      delay(100);
+      if (DEBUG_MSG) {
+        Serial.print("Waiting for MAX-10S GPS boot...");
+        
+      }
+      delay(1000);
+      //Just call the helper function
+      setGPS_AirBorne_10S();
+    }
   }
 
 }
