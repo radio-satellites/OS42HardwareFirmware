@@ -33,9 +33,10 @@
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
 
-unsigned long previousMicros = micros(); //Timer in uS.
+//unsigned long previousMicros = micros(); //Timer in uS.
 
 RTC_DATA_ATTR int LPM_rotations = 0;
+RTC_DATA_ATTR bool gpsLock = false;
 
 //int transmit_wait_factor = 1000; //Number of uS to wait during tx
 
@@ -149,6 +150,15 @@ void setup() {
       //Just call the helper function
       setGPS_AirBorne_10S();
     }
+  }
+  while (gpsLock == false and WAIT_GPS_LOCK == true){
+    sendTemperature();
+    checkGPS();
+    if (loc_valid){
+      gpsLock = true;
+    }
+    delay(2500);
+    
   }
 
 }

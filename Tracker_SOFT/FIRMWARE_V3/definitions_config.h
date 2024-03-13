@@ -33,6 +33,7 @@ static const char callsign[] = "OS42-2"; // maximum of 6 characters. "T" should 
 #define IMG_BUFF_SIZE               128                               //size of the buffer feeding SSDV encoder
 #define FSK_BUFFER_LEN 255 //FSK buffer length
 #define USE_FEC true //Encode FEC as part of the SSDV packet
+#define WAIT_GPS_LOCK true //Wait for GPS lock before transmitting stuff
 /////////////////////////////////////////////////////////////////
 
 //Do not change
